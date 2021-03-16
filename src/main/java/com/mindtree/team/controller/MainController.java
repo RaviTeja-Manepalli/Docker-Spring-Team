@@ -82,5 +82,15 @@ public class MainController {
 			return new ResponseEntity<>("No data found ", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+		@GetMapping("/")
+	public String getMessage() {
+		return "[GET] https//localhost:8888/api/v1/all ->  gives list of employees\n"
+				+ "[GET] https://localhost:8888/api/v1/get/{id} -> gives employee details based on ID\n"
+				+ "[POST] https://localhost:8888/api/v1/add - > add employee\n"
+				+ "[PUT] https://localhost:8888/api/v1/update/{id} - > updates employee name based on ID\n"
+				+ "[DELETE] https://localhost:8888/api/v1/delete/{id} -> delete employee based on ID";
+	}
+
 
 }
