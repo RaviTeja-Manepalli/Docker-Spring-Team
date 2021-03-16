@@ -1,0 +1,31 @@
+    
+version: '3'
+services:
+  mysql-team:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=teams
+    ports:
+      - "3307:3306"
+    networks:
+      - mysql-network
+  springboot-docker-container:
+    image: spring-team
+    ports:
+      - "8888:8888"
+    networks:
+      - mysql-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-team:3306/teams?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    depends_on:
+      - mysql-team
+networks:
+  mysql-network:
+     
