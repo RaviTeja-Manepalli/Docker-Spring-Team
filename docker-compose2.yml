@@ -1,0 +1,27 @@
+  
+version: "3"
+services:
+  mysql-team:
+   image: mysql:8
+   networks:
+     - team-app-network
+   environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_DATABASE=teams
+   volumes:
+     - mysql_data:/var/lib/mysql
+  employee-app:
+    image: spring-team
+    ports:
+      - "8080:8080"
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    networks:
+      - team-app-network
+    depends_on:
+      - mysql-team
+networks:
+  team-app-network:
+volumes:
+  mysql_data:
